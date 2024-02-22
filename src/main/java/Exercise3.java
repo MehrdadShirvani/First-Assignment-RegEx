@@ -10,8 +10,9 @@ public class Exercise3 {
     I will write the basics for this one method, you will have to implement the other two methods from scratch
     */
 
-    public static String extractURL(String text) {
-        String regex = "write your regex pattern here!";  // TODO
+    public static String extractURL(String text)
+    {
+        String regex = "(http|https)://(www.)?[a-zA-Z0-9@:%._-]{2,256}\\.[a-zA-Z]{2,6}";
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
@@ -19,7 +20,8 @@ public class Exercise3 {
         if (matcher.find()) {
             return matcher.group();
         }
-        else{
+        else
+        {
             return null;
         }
     }
@@ -28,9 +30,14 @@ public class Exercise3 {
     implement the method below to validate an email address
      */
 
-    public static boolean validateEmail(String email) {
-        // TODO
-        return false;
+    public static boolean validateEmail(String email)
+    {
+        String regex = "^[^\\s\\.@]+@[^\\s\\.@]+\\.[^\\s\\.@]{2,3}$";
+
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.find();
     }
 
     /*
@@ -39,8 +46,14 @@ public class Exercise3 {
 
     public static List<String> findWordsWithRepeatLetters(String input) {
         List<String> wordsWithRepeatLetters = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\b\\w*(\\w)\\w*\\1\\w*\\b");
+        Matcher matcher = pattern.matcher(input);
+        while(matcher.find())
+        {
+            wordsWithRepeatLetters.add(matcher.group());
+        }
         return wordsWithRepeatLetters;
-        // TODO
+
     }
 
     /*
@@ -49,13 +62,26 @@ public class Exercise3 {
     for example: "appleapple orange pearpear pineapple" -> ["appleapple", "pearpear"]
     */
 
-    public static List<String> findReapetdWords(String input) {
+    public static List<String> findReapetdWords(String input)
+    {
         List<String> repeatedWords = new ArrayList<>();
+        Pattern pattern = Pattern.compile("(\\w{2,})\\1");
+        Matcher matcher = pattern.matcher(input);
+        while(matcher.find())
+        {
+            repeatedWords.add(matcher.group());
+        }
         return repeatedWords;
-        // TODO
     }
 
-    public static void main(String[] args) {
-        // test your code here!
+    public static void main(String[] args)
+    {
+        String text = "abcc abc  abc abc abc abc ";
+        Pattern pattern = Pattern.compile("abc(c)?");
+        Matcher matcher = pattern.matcher(text);
+        while(matcher.find())
+        {
+            System.out.println(matcher.group());
+        }
     }
 }
